@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define INITIAL_CAPACITY 8
+#define INITIAL_CAPACITY 2
 
 typedef struct {
     size_t size;
@@ -30,7 +30,11 @@ void insertArray(dynamic_array* arr, int num) {
         int* temp = arr->array;
         arr->capacity <<= 1;
         arr->array = realloc(arr->array, arr->capacity * sizeof(int));
-        arr->array = temp;
+        if (!arr->array){
+            printf("Memory allocation failed\n");
+            arr->array = temp;
+            return;
+        }
     }
     arr->array[arr->size++] = num;
 }
@@ -62,6 +66,15 @@ void freeArray(dynamic_array* arr){
 int main(){
     dynamic_array* arr = array();
 
+    insertArray(arr, 5);
+    insertArray(arr, 3);
+    insertArray(arr, 2);
+    insertArray(arr, 5);
+    insertArray(arr, 3);
+    insertArray(arr, 2);
+    insertArray(arr, 5);
+    insertArray(arr, 3);
+    insertArray(arr, 2);
     insertArray(arr, 5);
     insertArray(arr, 3);
     insertArray(arr, 2);
